@@ -1,6 +1,6 @@
 ---
 name: merge-cleanup
-description: Clean up after a pull request has merged - delete the feature branch both locally and on the remote, and sync the local target branch. Use once a PR is confirmed merged, not before.
+description: Local only, not for cloud sessions (their VMs are discarded and the proxy blocks remote branch deletion). Clean up after a pull request has merged - delete the feature branch both locally and on the remote, and sync the local target branch. Use once a PR is confirmed merged, not before.
 ---
 
 Use this after confirming a PR has actually merged (check with `gh pr view <number>`

@@ -43,3 +43,6 @@ already exists.
   create`) or skip it — don't create labels silently.
 - If `gh` isn't authenticated or the repo can't be inferred, say so and stop rather
   than guessing.
+- In a cloud session, `gh` subcommands that use GraphQL (`gh issue`, `gh pr`,
+  `gh api graphql`) are blocked. Use the built-in GitHub tools or the REST API
+  (`gh api repos/{owner}/{repo}/...`) instead of stopping.

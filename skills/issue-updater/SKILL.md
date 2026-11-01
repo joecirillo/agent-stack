@@ -77,3 +77,8 @@ confirmation before writing anything.
 - If `gh` isn't authenticated or the repo can't be inferred, say so and stop.
 - For bulk operations affecting more than 5 issues, list all affected issue numbers in
   the proposal so the user can spot unintended targets before confirming.
+- In a cloud session, `gh` subcommands that use GraphQL (`gh issue`, `gh pr`,
+  `gh api graphql`) are blocked. Use the built-in GitHub tools or the REST API
+  (`gh api repos/{owner}/{repo}/...`) instead of stopping.
+  If neither offers a blocking-relationship operation, use the `## Blocked by`
+  body fallback and say so.

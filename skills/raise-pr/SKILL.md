@@ -9,7 +9,7 @@ in order — do not skip the review step even if the diff looks small or obvious
 
 1. Run `git status` and `git diff` (against the base branch, typically `main`) to see
    the full scope of changes.
-2. Run the project's lint and test commands (see AGENTS.md) and confirm they pass. If
+2. Run the project's lint and test commands (see the project's CLAUDE.md or AGENTS.md) and confirm they pass. If
    either fails, stop and report the failure — do not proceed to review or PR creation.
 3. Decide how much local review this diff needs, and which reviewer(s), based on what
    it actually does — not fixed file paths, since this skill runs across projects with
@@ -51,3 +51,7 @@ This skill produces a PR for human review — it does not replace that review. I
 is to make sure the PR that lands in front of the human reviewer has already had the
 obvious issues caught, without running every reviewer on every change regardless of
 size or risk.
+
+In a cloud session, `gh pr create` and `gh pr view` are blocked because they use
+GraphQL. Open the PR with the built-in GitHub tools or the REST API
+(`gh api repos/{owner}/{repo}/pulls`) instead of stopping.

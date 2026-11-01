@@ -57,3 +57,6 @@ reimplement what they do.
   before a branch and commits exist than after.
 - Don't fold `new-branch` or `raise-pr`'s responsibilities into this skill.
 - If `gh` isn't authenticated or the repo can't be inferred, say so and stop.
+- In a cloud session, `gh` subcommands that use GraphQL (`gh issue`, `gh pr`,
+  `gh api graphql`) are blocked. Use the built-in GitHub tools or the REST API
+  (`gh api repos/{owner}/{repo}/...`) instead of stopping.
