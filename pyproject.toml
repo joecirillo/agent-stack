@@ -1,0 +1,21 @@
+[project]
+name = "agent-stack"
+version = "0.1.0"
+description = "Vendor a portable agent stack into projects for Claude Code and Codex"
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+agent-stack = "agent_stack.cli:main"
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
