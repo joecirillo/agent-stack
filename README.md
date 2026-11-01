@@ -1,61 +1,72 @@
 # agent-stack
 
-My agent stack (workflow skills, review agents, git guard hooks, and shared
-instructions), packaged so it works in **Claude Code and Codex**, locally
-and in cloud sessions.
+My Claude Code agent stack as a plugin: issue-driven workflow skills, review
+agents, git guard hooks, and my global instructions. It installs the same way
+on my machine and in Claude Code cloud sessions, so projects don't need to
+commit any of it.
 
 ## What's in it
 
-| Path | What | Read by |
-| - | - | - |
-| `instructions/AGENTS.md` | Shared working conventions | Both (via project `AGENTS.md`) |
-| `skills/*/SKILL.md` | Issue → branch → PR workflow skills ([Agent Skills](https://agentskills.io) format) | Both |
-| `agents/*.md` | Review and planning subagents | Claude Code |
-| `hooks/` | Commit guard (secrets + 50/72), protect-main, quality gate, compaction recap | Claude Code |
-| `.claude-plugin/` | Plugin manifest + single-plugin marketplace | Claude Code |
+| Path | What |
+| - | - |
+| `skills/` | Issue → branch → PR workflow skills |
+| `agents/` | Review and planning subagents |
+| `hooks/` | Commit guard (secrets + 50/72), protect-main, quality gate, compaction recap |
+| `instructions/AGENTS.md` | Global instructions, installed as `~/.claude/CLAUDE.md` in cloud sessions |
+| `cloud/setup.sh` | Setup script for Claude Code cloud environments |
+| `.claude-plugin/` | Plugin manifest and a marketplace listing this one plugin |
 
-## Two ways to use it
+Plugin components are namespaced, e.g. `/agent-stack:start-issue`.
 
-### 1. As a Claude Code plugin (personal machine)
+## Install on your machine
+
+Run from any folder. Both commands write to `~/.claude`, not to a project:
 
 ```bash
 claude plugin marketplace add joecirillo/agent-stack
 claude plugin install agent-stack@agent-stack
 ```
 
-Components are namespaced, e.g. `/agent-stack:start-issue`.
+Locally, your global instructions come from your own `~/.claude/CLAUDE.md`.
 
-### 2. Vendored into a project (Codex, cloud sessions, teammates)
+## Install in cloud sessions
 
-```bash
-python3 -m venv .venv && .venv/bin/pip install -e '.[dev]'
-.venv/bin/agent-stack init ~/dev/some-project
-```
+A cloud session only sees the cloned project repo, and it doesn't install
+plugins that a project's `.claude/settings.json` enables. Instead, install the
+stack into the cloud VM's user config with the environment's setup script:
 
-`init` writes committed files into the project, so cloud sessions get the
-stack from the clone itself with no network or private-repo access:
+1. On [claude.ai/code](https://claude.ai/code), edit the cloud environment.
+2. Paste the contents of [`cloud/setup.sh`](cloud/setup.sh) into **Setup script** and save.
 
-| Project path | Purpose |
+The script clones this repo, writes `instructions/AGENTS.md` to
+`~/.claude/CLAUDE.md`, and installs the plugin. A session then has:
+
+| What | Comes from |
 | - | - |
-| `AGENTS.md` | Stack instructions in a managed block; your own content outside it is kept |
-| `CLAUDE.md` | Gets an `@AGENTS.md` import so Claude Code reads the same instructions |
-| `.agents/skills/<name>/` | Vendored skills, where Codex discovers them |
-| `.claude/skills/<name>` | Relative symlinks to the above, so Claude Code reads the same copy |
-| `.claude/agents/` | Subagents |
-| `.agent-stack/hooks/` + `.claude/settings.json` | Hook scripts, merged into existing settings |
-| `.agent-stack/manifest.json` | Paths `init` owns |
+| Global instructions | `~/.claude/CLAUDE.md`, written by the script |
+| Project instructions | The project's own `CLAUDE.md` |
+| Skills, agents, hooks | This plugin |
 
-Re-run `init` to update. It only replaces paths listed in the manifest and
-refuses to overwrite anything the project created itself. Skills marked
-`disable-model-invocation: true` also get a Codex `agents/openai.yaml`
-with `allow_implicit_invocation: false`, so they stay manual-only in both
-tools.
+The script exits non-zero if any step fails, which stops the session from
+starting, so a broken install is visible instead of silently missing.
 
-Hooks need `jq`, `python3`, and `gh` on the machine running the agent.
+Cloud environments cache the setup result for about seven days. To pick up
+changes to this repo sooner, edit and re-save the setup script, which forces a
+rebuild.
 
 ## Development
 
+Load the working copy into one session without installing it:
+
 ```bash
-.venv/bin/pytest
+claude --plugin-dir ~/dev/agent-stack
+```
+
+Validate before pushing:
+
+```bash
 claude plugin validate --strict .
 ```
+
+The plugin's `version` in `.claude-plugin/plugin.json` controls updates:
+installed copies only refresh when it changes, so bump it on each release.
