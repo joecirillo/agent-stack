@@ -10,7 +10,7 @@ STACK_DIR=/opt/agent-stack
 git clone --depth 1 https://github.com/joecirillo/agent-stack.git "$STACK_DIR"
 
 mkdir -p ~/.claude
-cp "$STACK_DIR/instructions/AGENTS.md" ~/.claude/CLAUDE.md
+cat "$STACK_DIR/instructions/core.md" "$STACK_DIR/instructions/unattended.md" > ~/.claude/CLAUDE.md
 
 claude plugin marketplace add "$STACK_DIR"
 claude plugin install agent-stack@agent-stack

@@ -12,7 +12,9 @@ commit any of it.
 | `skills/` | Issue → branch → PR workflow skills |
 | `agents/` | Review and planning subagents |
 | `hooks/` | Commit guard (secrets + 50/72), protect-main, quality gate, compaction recap |
-| `instructions/AGENTS.md` | Global instructions, installed as `~/.claude/CLAUDE.md` in cloud sessions |
+| `instructions/core.md` | Global instructions for every session: code design, testing, git, quality bar |
+| `instructions/interactive.md` | Instructions for sessions I'm watching: about me, teaching, ask-first workflow |
+| `instructions/unattended.md` | Replaces the ask-first rules in cloud sessions: proceed on defaults, record assumptions in the PR |
 | `cloud/setup.sh` | Setup script for Claude Code cloud environments |
 | `.claude-plugin/` | Plugin manifest and a marketplace listing this one plugin |
 
@@ -27,7 +29,13 @@ claude plugin marketplace add joecirillo/agent-stack
 claude plugin install agent-stack@agent-stack
 ```
 
-Locally, your global instructions come from your own `~/.claude/CLAUDE.md`.
+Plugins can't supply `CLAUDE.md` instructions, so point your global
+`~/.claude/CLAUDE.md` at this repo's instruction files with imports:
+
+```markdown
+@~/dev/agent-stack/instructions/core.md
+@~/dev/agent-stack/instructions/interactive.md
+```
 
 ## Install in cloud sessions
 
@@ -38,12 +46,14 @@ stack into the cloud VM's user config with the environment's setup script:
 1. On [claude.ai/code](https://claude.ai/code), edit the cloud environment.
 2. Paste the contents of [`cloud/setup.sh`](cloud/setup.sh) into **Setup script** and save.
 
-The script clones this repo, writes `instructions/AGENTS.md` to
-`~/.claude/CLAUDE.md`, and installs the plugin. A session then has:
+The script clones this repo, writes `core.md` plus `unattended.md` to
+`~/.claude/CLAUDE.md`, and installs the plugin. Cloud sessions usually run
+without anyone watching, so `interactive.md`'s ask-first rules would stall
+them. A session then has:
 
 | What | Comes from |
 | - | - |
-| Global instructions | `~/.claude/CLAUDE.md`, written by the script |
+| Global instructions | `~/.claude/CLAUDE.md`, written by the script from `core.md` + `unattended.md` |
 | Project instructions | The project's own `CLAUDE.md` |
 | Skills, agents, hooks | This plugin |
 

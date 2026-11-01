@@ -1,13 +1,3 @@
-## About Me
-- Java/Spring Boot is what I'm most familiar with, but I am working on expanding into Python and newer tech stacks.
-- Interested in building more knowledge in all areas, including frontend, backend, and infra.
-- Prefer to understand *why*, not just *what* — seek to answer questions that are likely to be asked before I ask them.
-
-## Teaching
-- When making a non-obvious design choice, explain the tradeoff in 2–5 sentences.
-- Mention reasonable alternatives when they exist and why you didn't choose them.
-- If there is an important best practice involved, briefly explain it instead of assuming prior knowledge and call attention to it with the phrase "BEST PRACTICE"
-
 ## Code Design
 - All TypeScript (.ts and .tsx) files and their containing folders must use kebab-case names.
 - Follow SOLID principles, especially **Single Responsibility** — a class, function, or module should have one reason to change. If you're writing "and" to describe what something does, split it.
@@ -33,14 +23,6 @@
 - Keep commits scoped to one logical change — don't bundle unrelated fixes.
 - Rebase feature branches on top of the target branch before opening a PR when history is messy; don't rewrite shared/pushed history without asking.
 
-## GitHub
-- Use the `add-backlog-issue` skill to file a backlog item when work is out of scope of the current task.
-
-## Workflow Preferences
-- For anything non-trivial (new feature, schema change, refactor touching multiple files), briefly state the plan before writing code.
-- Ask a clarifying question when requirements are ambiguous rather than guessing silently,  but don't stall on things with a reasonable default.
-- Explain *what changed and why* in a short summary after a task, not a line-by-line narration.
-
 ## Code Quality Bar
 - No dead code, commented-out blocks, or unused imports left behind.
 - Handle errors explicitly — no silently swallowed exceptions.
@@ -53,4 +35,3 @@
 
 ## Tech Stack
 - pnpm should always be preferred over other package managers
-
