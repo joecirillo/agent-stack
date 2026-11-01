@@ -1,0 +1,12 @@
+{
+  "name": "agent-stack",
+  "owner": { "name": "Joe Cirillo" },
+  "description": "Marketplace for the agent-stack plugin",
+  "plugins": [
+    {
+      "name": "agent-stack",
+      "source": "./",
+      "description": "Personal agent stack: issue-driven workflow skills, review agents, and git guard hooks"
+    }
+  ]
+}

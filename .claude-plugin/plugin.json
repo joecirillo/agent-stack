@@ -1,0 +1,9 @@
+{
+  "name": "agent-stack",
+  "version": "0.1.0",
+  "description": "Personal agent stack: issue-driven workflow skills, review agents, and git guard hooks",
+  "author": { "name": "Joe Cirillo" },
+  "repository": "https://github.com/joecirillo/agent-stack",
+  "license": "UNLICENSED",
+  "keywords": ["workflow", "review", "github", "agents-md"]
+}
