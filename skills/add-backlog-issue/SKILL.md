@@ -20,7 +20,10 @@ already exists.
    - Body: brief scope/context; include acceptance criteria only if the user gave
      enough to state one — don't invent criteria they haven't implied
    - Labels: check `gh label list` and suggest from what already exists in the repo;
-     don't invent new label names on the fly
+     don't invent new label names on the fly. If the repo has a `backlog` label,
+     include it and leave off any phase label (e.g. `phase:1`) — backlog items
+     aren't scheduled to a phase. Follow the repo's CLAUDE.md/AGENTS.md if it
+     says otherwise.
 
 3. **Show the draft and wait for confirmation.** The user may edit title, body, or
    labels before confirming. Do not create anything yet.
