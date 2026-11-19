@@ -6,11 +6,15 @@ description: Cut a new git branch following this repo owner's naming convention 
 Use this when implementation is about to begin and the work doesn't already have
 a branch.
 
+A branch the session was assigned (e.g. `claude/...` in cloud sessions) doesn't
+count as the work's branch -- cut a conventional one.
+
 1. Determine the type word: `feat`, `chore`, `refactor`, or `bug`.
 2. Determine the issue number:
    - Use one the user gave you.
    - Otherwise, if the work maps to a tracked GitHub issue, find it (e.g. `gh issue list`) or ask which issue.
    - If there's genuinely no tracked issue (a tiny ad-hoc task), ask for a short slug instead of stalling on a number.
+   - In an unattended session, don't ask: file an issue for the work (check for duplicates first) and use its number.
 3. Build the branch name: `<type>/<issue-number>-<short-kebab-description>`, e.g. `feat/123-new-endpoint`, `bug/456-fix-pagination-offset`. Keep the description short (3-5 words).
 4. Create and check out the branch from the up-to-date target branch (usually `main`):
    ```

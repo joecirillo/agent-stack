@@ -1,6 +1,6 @@
 {
   "name": "agent-stack",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Personal agent stack: issue-driven workflow skills, review agents, and git guard hooks",
   "author": { "name": "Joe Cirillo" },
   "repository": "https://github.com/joecirillo/agent-stack",
